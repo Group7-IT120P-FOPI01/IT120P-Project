@@ -1,11 +1,11 @@
 # IT120P-Project
 Project Progress
 ## To access file:
-Download XAMPP
-Open the XAMPP control panel and start the "Apache" and "MySQL."
-Download Preloved folder 
-Move the extracted source code folder (Preloved) and transfer it to the "htdocs" directory in XAMPP.
-To get started, open up a browser and access PHPMyAdmin by typing in http://localhost/phpmyadmin. 
-Once there, you can create a new database and name it "edgedata".
-Then, proceed to import the "edgedata.sql" file located in the "database" folder to this newly created database.
-Browse the Preloved website in a browser. i.e. http://localhost/Preloved
+1. Download XAMPP
+2. Open the XAMPP control panel and start the "Apache" and "MySQL."
+3. Download Preloved folder 
+4. Move the extracted source code folder (Preloved) and transfer it to the "htdocs" directory in XAMPP.
+5. To get started, open up a browser and access PHPMyAdmin by typing in http://localhost/phpmyadmin. 
+6. Once there, you can create a new database and name it "edgedata".
+7. Then, proceed to import the "edgedata.sql" file located in the "database" folder to this newly created database.
+8. Browse the Preloved website in a browser. i.e. http://localhost/Preloved
