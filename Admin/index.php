@@ -126,7 +126,7 @@ button:before {
 
        <a href="items.php"> <button>Items Management</button> </a>
 	   
-	   <a href="customers.php"><button>Customer Management</button></a>
+	   <a href="customers.php"><button>User Management</button></a>
 	   
 	   <a href="orderdetails.php"><button>Order Details</button></a>
 
