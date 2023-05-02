@@ -8,6 +8,7 @@ if(!$_SESSION['admin_username'])
 }
 
 ?>
+
 <?php
 
 	require_once 'config.php';
@@ -31,15 +32,15 @@ if(!$_SESSION['admin_username'])
 
 	require_once 'config.php';
 	
-	if(isset($_GET['order_id']))
+	if(isset($_GET['delete_id']))
 	{
 		
 		
 		
 	
-		$stmt_delete = $DB_con->prepare('update orderdetails set order_status="Ordered_Finished"  WHERE user_id =:user_id and order_status="Ordered"');
-		$stmt_delete->bindParam(':user_id',$_GET['order_id']);
-		$stmt_delete->execute();
+		$stmts_delete = $DB_con->prepare('DELETE FROM influencers WHERE influencer_id =:influencer_id');
+		$stmts_delete->bindParam(':influencer_id',$_GET['delete_id']);
+		$stmts_delete->execute();
 		
 		header("Location: customers.php");
 	}
@@ -83,9 +84,16 @@ if(!$_SESSION['admin_username'])
   <a href="customers.php" class="w3-bar-item w3-button w3-hide-small" style="margin-top:1%" >Customer Management</a>
   <a href="orderdetails.php" class="w3-bar-item w3-button w3-hide-small" style="margin-top:1%" >Order Details</a>
    <br />
-  
-     <a href="logout.php" class="w3-bar-item w3-button w3-right" title="Search"style="margin-top:1%;margin-left:2%;margin-right:2%; padding-left:30px; padding-right:30px;background-color: white; color:#ef8e8d; border-radius: 5px;">Logout</a>
+  </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user" style="margin-right:2%">
+                   
+					<li><a href="addinfluencer.php"><i class="glyphicon glyphicon-user"></i> Add Influencer</a></li>
+				   
+					<li><a href="adduser.php"><i class="glyphicon glyphicon-user"></i> Add User</a></li>
+                            
+                    <li><a href="logout.php"><i class="fa fa-power-off"></i> Log Out</a></li>
 
+                </ul>
  <br />
  <br />
   <br />
@@ -98,21 +106,99 @@ if(!$_SESSION['admin_username'])
 <br />
 <br />
  <br /> 
+<!-- Influencer List -->
 
-        <div id="page-wrapper">
+<div id="page-wrapper">
             
-			
+			<br><br>
 	
-			 <div class="alert alert-danger">
+			 <div style="background-color: white;">
                         
-                          <center> <h3><strong>Customer Management</strong> </h3></center>
+                          <center> <h3 style="font-family: Copperplate Gothic; font-size: 360%; margin-left: 10%;"><strong>Influencer List</strong> </h3></center>
 						  
 						  </div>
 						  
-						  <br />
+						  <br><br><br>
 						  
-						  <div class="table-responsive">
-            <table class="display table table-bordered" id="example" cellspacing="0" width="100%">
+						  
+            <table class="display table table-bordered" id="example" cellspacing="0" style="color: black; width: 60%;  margin-left: 25%;">
+              <thead>
+                <tr>
+                  <th>Influencer Email</th>
+                  <th>Name</th>
+				  <th>Address</th>
+                  <th>Actions</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+			  <?php
+include("config.php");
+	$stmts = $DB_con->prepare('SELECT * FROM influencers');
+	$stmts->execute();
+	
+	if($stmts->rowCount() > 0)
+	{
+		while($row=$stmts->fetch(PDO::FETCH_ASSOC))
+		{
+			extract($row);
+			
+			
+			?>
+                <tr>
+                  
+                 <td style="width: 30%"><?php echo $influencer_email; ?></td>
+				 <td><?php echo $influencer_firstname; ?> <?php echo $influencer_lastname; ?></td>
+				 <td><?php echo $influencer_address; ?></td>
+				 
+				 <td style="width: 38%">
+				
+				 
+				<a class="btn btn-success" href="items.php?view_id=<?php echo $row['influencer_id']; ?>"><span class='glyphicon glyphicon-list'></span> View Products</a> 
+				<a class="btn btn-warning" href="editInflu.php?edit_id=<?php echo $row['influencer_id']; ?>" title="click for edit" onclick="return confirm('Are you sure edit this Influencer?')"><span class='glyphicon glyphicon-edit'></span> Edit Account</a>   		
+				<a class="btn btn-danger" href="?delete_id= <?php echo $row['influencer_id']; ?>" title="click for delete" onclick="return confirm('Are you sure to remove this Influencer?')">
+				<span class='glyphicon glyphicon-trash'></span> Delete Account</a>
+				
+                  </td>
+                </tr>
+               
+              <?php
+		}
+		 
+		echo "</tbody>";
+		echo "</table>";
+	}else
+	{
+		?>
+		
+			
+        <div class="col-xs-12">
+        	<div class="alert alert-warning">
+            	<span class="glyphicon glyphicon-info-sign"></span> &nbsp; No Data Found ...
+            </div>
+        </div>
+        <?php
+	}
+	
+?>
+
+</div>
+
+<!--User Accounts-->
+
+<div id="page-wrapper">
+            
+			<br><br>
+	
+			 <div style="background-color: white">
+                        
+                          <center> <h3 style="font-family: Copperplate Gothic; font-size: 360%; margin-left: 10%;"><strong>User Accounts</strong> </h3></center>
+						  
+						  </div>
+						  
+						  <br><br><br>
+						  
+            <table class="display table table-bordered" id="example" cellspacing="0" style="color: black; width: 60%;  margin-left: 25%;">
               <thead>
                 <tr>
                   <th>Customer Email</th>
@@ -138,24 +224,16 @@ include("config.php");
 			?>
                 <tr>
                   
-                 <td><?php echo $user_email; ?></td>
+                 <td style="width: 30%"><?php echo $user_email; ?></td>
 				 <td><?php echo $user_firstname; ?> <?php echo $user_lastname; ?></td>
 				 <td><?php echo $user_address; ?></td>
 				 
-				 <td>
-				
+				 <td style="width: 38%">
 				 
-				
-				 <a class="btn btn-success" href="view_orders.php?view_id=<?php echo $row['user_id']; ?>"><span class='glyphicon glyphicon-shopping-cart'></span> View Orders</a> 
-				  <a class="btn btn-warning" href="?order_id=<?php echo $row['user_id']; ?>" title="click for delete" onclick="return confirm('Are you sure to reset the customer items ordered?')">
-				  <span class='glyphicon glyphicon-ban-circle'></span>
-				  Reset Order</a>
-				 <a class="btn btn-primary" href="previous_orders.php?previous_id=<?php echo $row['user_id']; ?>"><span class='glyphicon glyphicon-eye-open'></span> Previous Items Ordered</a> 
-				
-				
-                  <a class="btn btn-danger" href="?delete_id=<?php echo $row['user_id']; ?>" title="click for delete" onclick="return confirm('Are you sure to remove this customer?')">
-				  <span class='glyphicon glyphicon-trash'></span>
-				  Remove Account</a>
+				<a class="btn btn-success" href="view_orders.php?view_id=<?php echo $row['user_id']; ?>"><span class='glyphicon glyphicon-list'></span> View Orders</a> 
+				<a class="btn btn-warning" href="editUser.php?edit_id=<?php echo $row['user_id']; ?>" title="click for edit" onclick="return confirm('Are you sure edit this User?')"><span class='glyphicon glyphicon-edit'></span> Edit Account</a> 
+                <a class="btn btn-danger" href="?delete_id=<?php echo $row['user_id']; ?>" title="click for delete" onclick="return confirm('Are you sure to remove this User?')">
+				<span class='glyphicon glyphicon-trash'></span> Delete Account</a>
 				
                   </td>
                 </tr>
@@ -164,18 +242,23 @@ include("config.php");
 		}
 		echo "</tbody>";
 		echo "</table>";
-		echo "</div>";
-		echo "<br />";
-		echo '<div class="alert alert-default" style="background-color:#e5c0ba;">
-                       <p style="color:black;text-align:center;">
-                       Copyright © 2023 Preloved, Inc. Created by: AppDev Group 7 - Mapua University Makati. All Rights Reserved.
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
 
-						</p>
-                        
-                    </div>
-	</div>';
-	
-		echo "</div>";
+		echo '	<div class="alert alert-default" style="background-color: #ff8c92">
+                    <footer>
+					<p style="color:white;text-align:center;">
+						Copyright © 2023 Preloved, Inc. Created by: AppDev Group 7 - Mapua University Makati. All Rights Reserved.
+
+					</p>
+					</footer>
+				</div>';
 	}
 	else
 	{
@@ -191,89 +274,7 @@ include("config.php");
 	}
 	
 ?>
-		
-	</div>
-	</div>
-	
-	<br />
-	<br />
-           
 
-           
-        </div>
-		
-		
-		
-    </div>
-    <!-- /#wrapper -->
-
-	
-	<!-- Mediul Modal -->
-        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
-          <div class="modal-dialog modal-md">
-            <div style="color:white;background-color:#008CBA" class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2 style="color:white" class="modal-title" id="myModalLabel">Upload Items</h2>
-              </div>
-              <div class="modal-body">
-         
-				
-			
-				
-				 <form enctype="multipart/form-data" method="post" action="additems.php">
-                   <fieldset>
-					
-						
-                            <p>Name of Item:</p>
-                            <div class="form-group">
-							
-                                <input class="form-control" placeholder="Name of Item" name="item_name" type="text" required>
-                           
-							 
-							</div>
-							
-							
-							
-							
-							
-							
-							
-							
-							<p>Price:</p>
-                            <div class="form-group">
-							
-                                <input id="priceinput" class="form-control" placeholder="Price" name="item_price" type="text" required>
-                           
-							 
-							</div>
-							
-							
-							<p>Choose Image:</p>
-							<div class="form-group">
-						
-							 
-                                <input class="form-control"  type="file" name="item_image" accept="image/*" required/>
-                           
-							</div>
-				   
-				   
-					 </fieldset>
-                  
-            
-              </div>
-              <div class="modal-footer">
-               
-                <button class="btn btn-success btn-md" name="item_save">Save</button>
-				
-				 <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancel</button>
-				
-				
-				   </form>
-              </div>
-            </div>
-          </div>
-        </div>
 		
 		<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
