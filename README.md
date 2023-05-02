@@ -9,3 +9,5 @@ Project Progress
 6. Once there, you can create a new database and name it "edgedata".
 7. Then, proceed to import the "edgedata.sql" file located in the "database" folder to this newly created database.
 8. Browse the Preloved website in a browser. i.e. http://localhost/Preloved
+## To view website:
+1. https://prelovedbythestars.000webhostapp.com/index.php
