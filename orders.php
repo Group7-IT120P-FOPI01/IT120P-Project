@@ -18,6 +18,7 @@ if(!$_SESSION['user_email'])
 		extract($edit_row);
 		
 		?>
+		
 		<?php
  include("config.php");
 		  $stmt_edit = $DB_con->prepare("select sum(order_total) as total from orderdetails where user_id=:user_id and order_status='Ordered'");
@@ -26,6 +27,10 @@ if(!$_SESSION['user_email'])
 		extract($edit_row);
 		
 		?>
+		
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,205 +44,13 @@ if(!$_SESSION['user_email'])
 
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	
-	
-	<script type="text/javascript" src="jquery.fancybox.js?v=2.1.5"></script>
-	<link rel="stylesheet" type="text/css" href="jquery.fancybox.css?v=2.1.5" media="screen" />
-	
-	<link rel="stylesheet" type="text/css" href="jquery.fancybox-buttons.css?v=1.0.5" />
-	<script type="text/javascript" src="jquery.fancybox-buttons.js?v=1.0.5"></script>
 
-
-	<link rel="stylesheet" type="text/css" href="jquery.fancybox-thumbs.css?v=1.0.7" />
-	<script type="text/javascript" src="jquery.fancybox-thumbs.js?v=1.0.7"></script>
-
-
-	<script type="text/javascript" src="jquery.fancybox-media.js?v=1.0.6"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-			 *  Simple image gallery. Uses default settings
-			 */
-
-			$('.fancybox').fancybox();
-
-			/*
-			 *  Different effects
-			 */
-
-			// Change title type, overlay closing speed
-			$(".fancybox-effects-a").fancybox({
-				helpers: {
-					title : {
-						type : 'outside'
-					},
-					overlay : {
-						speedOut : 0
-					}
-				}
-			});
-
-			// Disable opening and closing animations, change title type
-			$(".fancybox-effects-b").fancybox({
-				openEffect  : 'none',
-				closeEffect	: 'none',
-
-				helpers : {
-					title : {
-						type : 'over'
-					}
-				}
-			});
-
-			// Set custom style, close if clicked, change title type and overlay color
-			$(".fancybox-effects-c").fancybox({
-				wrapCSS    : 'fancybox-custom',
-				closeClick : true,
-
-				openEffect : 'none',
-
-				helpers : {
-					title : {
-						type : 'inside'
-					},
-					overlay : {
-						css : {
-							'background' : 'rgba(238,238,238,0.85)'
-						}
-					}
-				}
-			});
-
-			// Remove padding, set opening and closing animations, close if clicked and disable overlay
-			$(".fancybox-effects-d").fancybox({
-				padding: 0,
-
-				openEffect : 'elastic',
-				openSpeed  : 150,
-
-				closeEffect : 'elastic',
-				closeSpeed  : 150,
-
-				closeClick : true,
-
-				
-			});
-
-			/*
-			 *  Button helper. Disable animations, hide close button, change title type and content
-			 */
-
-			$('.fancybox-buttons').fancybox({
-				openEffect  : 'none',
-				closeEffect : 'none',
-
-				prevEffect : 'none',
-				nextEffect : 'none',
-
-				closeBtn  : false,
-
-				helpers : {
-					title : {
-						type : 'inside'
-					},
-					buttons	: {}
-				},
-
-				afterLoad : function() {
-					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
-				}
-			});
-
-
-			/*
-			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
-			 */
-
-			$('.fancybox-thumbs').fancybox({
-				prevEffect : 'none',
-				nextEffect : 'none',
-
-				closeBtn  : false,
-				arrows    : false,
-				nextClick : true,
-
-				helpers : {
-					thumbs : {
-						width  : 50,
-						height : 50
-					}
-				}
-			});
-
-			/*
-			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
-			*/
-			$('.fancybox-media')
-				.attr('rel', 'media-gallery')
-				.fancybox({
-					openEffect : 'none',
-					closeEffect : 'none',
-					prevEffect : 'none',
-					nextEffect : 'none',
-
-					arrows : false,
-					helpers : {
-						media : {},
-						buttons : {}
-					}
-				});
-
-			/*
-			 *  Open manually
-			 */
-
-			$("#fancybox-manual-a").click(function() {
-				$.fancybox.open('1_b.jpg');
-			});
-
-			$("#fancybox-manual-b").click(function() {
-				$.fancybox.open({
-					href : 'iframe.html',
-					type : 'iframe',
-					padding : 5
-				});
-			});
-
-			$("#fancybox-manual-c").click(function() {
-				$.fancybox.open([
-					{
-						href : '1_b.jpg',
-						title : 'My title'
-					}, {
-						href : '2_b.jpg',
-						title : '2nd title'
-					}, {
-						href : '3_b.jpg'
-					}
-				], {
-					helpers : {
-						thumbs : {
-							width: 75,
-							height: 50
-						}
-					}
-				});
-			});
-
-
-		});
-	</script>
-	
-	
+   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-pink.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-
-   
     
 </head>
 <body style="font-family:Arial;">
@@ -280,127 +93,114 @@ if(!$_SESSION['user_email'])
  <br />
   <br />
 
-
-	
-
-			 
+        <div id="page-wrapper">
+            
+			
 			<div class="alert alert-default" style="color:white;background-color:#e4bdb8;">
-         <center><h3> <span class="glyphicon glyphicon-shopping-cart"></span> Shop with Preloved </h3></center>
-		 
-		 
+         <center><h3> <span class="glyphicon glyphicon-list-alt"></span> My Ordered Items</h3></center>
         </div>
-		
-		
-
-				<ul class="nav navbar-nav navbar-right navbar-user">
-
+			
+					<ul class="nav navbar-nav navbar-right navbar-user">
 					
 					<li><a href="cart_items.php"> &nbsp; <span class='fa fa-cart-plus'></span> Shopping Cart Lists</a></li>
 					<li><a href="orders.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Ordered Items</a></li>
 					
 
                 </ul>
-				
-				<div id="page-wrapper">
-					<br />
-					 <br />
+			
+			<br />
+			<br />
 <br />
- <br />
-  <br />
-					
-
-<?php
-
-
-
-
-
-
-
-$conn=mysqli_connect("localhost","root","");
-mysqli_select_db($conn,"edgedata");
-
-$start=0;
-$limit=8;
-
-if(isset($_GET['id']))
-{
-	$id=$_GET['id'];
-	$start=($id-1)*$limit;
-}
-
-$query=mysqli_query($conn,"select * from items LIMIT $start, $limit");
-
-
-while($query2=mysqli_fetch_array($query))
-{
+						  
+						  <div class="table-responsive">
+            <table class="display table table-bordered" id="example" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+				  <th>Quantity</th>
+				  <th>Total</th>
+                  
+                 
+                </tr>
+              </thead>
+              <tbody>
+			  <?php
+include("config.php");
+ 
+	$stmt = $DB_con->prepare("SELECT * FROM orderdetails where order_status='Ordered' and user_id='$user_id'");
+	$stmt->execute();
 	
-	echo "<div class='col-sm-3'><div class='panel panel-default' style='border-color:#e4bdb8;;'>
-            <div class='panel-heading' style='color:white;background-color : #e4bdb8;'>
-            <center> 
-<textarea style='text-align:center;background-color: white;' class='form-control' rows='1' disabled>".$query2['item_name']."</textarea>
-			</center>
+	if($stmt->rowCount() > 0)
+	{
+		while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			extract($row);
+			
+			
+			?>
+                <tr>
+                  
+                 <td><?php echo $order_name; ?></td>
+				 <td>&#8369; <?php echo $order_price; ?> </td>
+				 <td><?php echo $order_quantity; ?></td>
+				 <td>&#8369; <?php echo $order_total; ?> </td>
+				 
+				 
+                </tr>
+
+               
+              <?php
+		}
+		 include("config.php");
+		  $stmt_edit = $DB_con->prepare("select sum(order_total) as totalx from orderdetails where user_id=:user_id and order_status='Ordered'");
+		$stmt_edit->execute(array(':user_id'=>$user_id));
+		$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+		extract($edit_row);
+		
+		echo "<tr>";
+		echo "<td colspan='3' align='right'>Total Price Ordered:";
+		echo "</td>";
+		
+		echo "<td>&#8369; ".$totalx;
+		echo "</td>";
+		
+		
+		
+		echo "</tr>";
+		echo "</tbody>";
+		echo "</table>";
+		echo "</div>";
+		echo "<br />";
+		echo '
+                        
+                    </div>
+	</div>';
+	
+		echo "</div>";
+	}
+	else
+	{
+		?>
+		
+			
+        <div class="col-xs-12">
+        	<div class="alert alert-warning">
+            	<span class="glyphicon glyphicon-info-sign"></span> &nbsp; No Item Found ...
             </div>
-            <div class='panel-body'>
-           <a class='fancybox-buttons' href='../Admin/item_images/".$query2['item_image']."' data-fancybox-group='button' title='Page ".$id."- ".$query2['item_name']."'>
-					
-					<img src='../Admin/item_images/".$query2['item_image']."' class='img img-thumbnail'  style='width:350px;height:150px;' />
-					</a>
-				
-					
-					<center><h4> Price: &#8369; ".$query2['item_price']." </h4></center>
+        </div>
+        <?php
+	}
+	
+?>
+			
+			
+			
+			
+		
+		
 		
 					
-										<a class='btn btn-block btn-danger' href='add_to_cart.php?cart=".$query2['item_id']."'><span class='glyphicon glyphicon-shopping-cart'></span> Add to cart</a>
-            </div>
-          </div>
-        </div>";
-			
-	
-}
-
-echo "<div class='container'>";
-echo "</div>";
-
-
-
-
-$rows=mysqli_num_rows(mysqli_query($conn,"select * from items"));
-$total=ceil($rows/$limit);
-echo "<br /><ul class='pager'>";
-if($id>1)
-{
-	echo "<li><a style='color:white;background-color : #e4bdb8;' href='?id=".($id-1)."'>Previous Page</a><li>";
-}
-if($id!=$total)
-{
-	echo "<li><a style='color:white;background-color : #e4bdb8;' href='?id=".($id+1)."' class='pager'>Next Page</a></li>";
-}
-echo "</ul>";
-
-
-echo "<center><ul class='pagination pagination-lg'>";
-		for($i=1;$i<=$total;$i++)
-		{
-			if($i==$id) { echo "<li class='pagination active'><a style='color:white;background-color : #e4bdb8;'>".$i."</a></li>"; }
-			
-	
-			
-			else { echo "<li><a href='?id=".$i."'>".$i."</a></li>"; }
-		}
-echo "</ul></center>";
-?>
-					
-					
-					
-					
-					
-					
-					
-					<br />
-
-
-            
                 </div>
             </div>
 
@@ -412,16 +212,13 @@ echo "</ul></center>";
 		
 		
     </div>
-	
-	
-	
     <!-- /#wrapper -->
 
 	
 	<!-- Mediul Modal -->
         <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
           <div class="modal-dialog modal-sm">
-            <div style="color:white;background-color:#e4bdb8;" class="modal-content">
+            <div style="color:white;background-color:#008CBA" class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h2 style="color:white" class="modal-title" id="myModalLabel">Account Settings</h2>
@@ -519,11 +316,6 @@ echo "</ul></center>";
         return true;
     }    
 </script>
-
-
-
-
-
 </body>
 
 <!-- Footer -->
@@ -609,4 +401,5 @@ echo "</ul></center>";
     <i class="fa fa-chevron-circle-up"></i></span></a>
   </div>  
     </footer>
+
 </html>

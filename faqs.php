@@ -1,9 +1,21 @@
 <?php
 session_start();
 
+if(!$_SESSION['user_email'])
+{
+
+    header("Location: ../index.php");
+}
 ?>
-
-
+<?php
+ include("config.php");
+ extract($_SESSION); 
+		  $stmt_edit = $DB_con->prepare('SELECT * FROM users WHERE user_email =:user_email');
+		$stmt_edit->execute(array(':user_email'=>$user_email));
+		$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+		extract($edit_row);
+		
+		?>
 <style>
 body {
   font-family: Arial, sans serif;
@@ -62,6 +74,17 @@ input[type="submit"]:hover {
   color:white;
   font-weight:bold;
 }
+
+.title{
+	float:right;
+	 margin-left: -20%;
+}
+
+.title2{
+	float:left;
+	 margin-right: -20%;
+}
+		   
 </style>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -86,14 +109,13 @@ input[type="submit"]:hover {
   <a class="navbar-brand w3-left" href="index.php"><img class="logo" src="logo.png" width="55" height="50" style="margin-top:20%;margin-left:15%; margin-bottom:20%" alt="logo"></a>
   
   <strong>
+  <a href="index.php" class="w3-bar-item nav-link w3-button" style="margin-left: 1%;margin-top:1%;"><i></i>Home</a>
   <a href="about.php" class="w3-bar-item nav-link w3-button" style="margin-left: 1%;margin-top:1%;"><i></i>About Us</a>
   <a href="faqs.php" class="w3-bar-item w3-button w3-hide-small" style="margin-top:1%">FAQs</a>
   <a href="contact.php" class="w3-bar-item w3-button w3-hide-small" style="margin-top:1%" >Contact Us</a>
  
-  <action = "login.php" method="POST">
-    <a href="login.php" class="w3-bar-item w3-button w3-right" title="Login" style="margin-top:1%;margin-left:2%;margin-right:2%; padding-left:30px; padding-right:30px;background-color: white; color:#ef8e8d; border-radius: 5px;">Login</a>
-	
-  <a href="register.php" class="w3-bar-item w3-button w3-right" title="Search"style="margin-top:1%; padding-left:30px; padding-right:30px;background-color: white; color:#ef8e8d; border-radius: 5px;">Register</a>
+       <a href="logout.php" class="w3-bar-item w3-button w3-right" title="Search"style="margin-top:1%;margin-left:2%;margin-right:2%; padding-left:30px; padding-right:30px;background-color: white; color:#ef8e8d; border-radius: 5px;">Logout</a>
+
   </strong>
   </div>
   </div>
